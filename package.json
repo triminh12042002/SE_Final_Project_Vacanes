@@ -1,0 +1,19 @@
+{
+  "name": "vacances",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/triminh12042002/SE_Final_Project_Vacanes.git"
+  },
+  "author": "nmt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/triminh12042002/SE_Final_Project_Vacanes/issues"
+  },
+  "homepage": "https://github.com/triminh12042002/SE_Final_Project_Vacanes#readme"
+}
