@@ -14,6 +14,7 @@ const accommodationSchema = new schema({
         type: String
     }],
     reservations:[ { type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }],
+    isVerified: {type: Boolean, default: false}
 })
 
 const Accommodation = mongoose.model('Accommodation', accommodationSchema)
