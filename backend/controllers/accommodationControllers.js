@@ -27,7 +27,6 @@ const isHost = async (id)=>{
 }
 
 const getAllAccommodation = async (req, res)=> {
-    console.log('here')
     const allRooms = await Accommodation.find({isVerified: true}, '-isVerified')
     return res.status(200).json(allRooms)
 }
