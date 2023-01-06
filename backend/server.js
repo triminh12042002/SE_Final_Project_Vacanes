@@ -1,24 +1,41 @@
+require('dotenv').config()
 const express = require('express')
-const colors = require('colors')
-const connectDB = require('./config/db')
-const dotenv = require('dotenv').config()
+const mongoDB = require('./config/db')
+const http = require('http')
 const app = express()
-const port = 5000
-
+const Router = require('./routes/router')
 const Host = require('./models/hostModel')
 
-connectDB()
 
-// to res with an json object
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
-// to req and pass data through req.body
-app.use(express.urlencoded({extends: false}))
+app.use('/api', Router)
+
+// Error handler
+app.all('*', (req, res)=>{
+    throw new ExpressError('Page not found', 404)
+})
+
+app.use((err, req, res, next)=>{
+    const {message = 'Something went wrong', statusCode = 500} = err
+    res.status(statusCode).json({message, statusCode, err})
+})
 
 
-app.use('/api/users', require('./routes/userRoutes'))
-app.get('/', (req, res) => {
-    res.status(200).json({message: 'Homepage'})
-})  
 
-app.listen(port, () => console.log(`Server start at port ${port}`))
+
+const port = process.env.PORT || 8080
+const startServer = async ()=>{
+    try {
+        
+        await mongoDB.connectDB()
+        http.createServer(app).listen(port, ()=>{
+            console.log(`Listening port ${port}`)
+        })
+    }catch(err){
+        console.log(`Server cannot start with error: ${err}`)
+    }
+}
+
+startServer()

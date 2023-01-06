@@ -5,7 +5,7 @@ const hostSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'
     },
-    accomodations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'accommodation' }]
+    accommodations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'accommodation' }]
     },
     {
         timestamps: true
