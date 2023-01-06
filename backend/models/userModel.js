@@ -13,10 +13,17 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: [true, 'Please add a password']
-    }
+    },
+    isHost: {
+        type: Boolean,
+        require: true
+    },
 },
-{
-    timestamps: true
-}) 
+    {
+        timestamps: true
+    })
 
-module.exports = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)
+
+module.exports = User
+module.exports.userSchema = userSchema
