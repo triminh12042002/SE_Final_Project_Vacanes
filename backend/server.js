@@ -11,10 +11,12 @@ connectDB()
 app.use(express.json())
 
 // to req and pass data through req.body
-app.use(express.urlencoded({extends: false}))
+app.use(express.urlencoded({extended: false}))
 
 
 app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/reservations', require('./routes/reservationRoutes'))
+
 app.get('/', (req, res) => {
     res.status(200).json({message: 'Homepage'})
 })  
