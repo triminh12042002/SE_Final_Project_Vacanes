@@ -7,7 +7,8 @@ import { getAccommodations } from '../features/accommodations/accommodationServi
 import './Dashboard.css'
 import Banner from '../components/Banner'
 import Card from '../components/Card'
-import { Button, Link } from '@mui/material'
+import {Link} from 'react-router-dom'
+
 
 function Dashboard() {
   const navigate = useNavigate()
@@ -17,7 +18,7 @@ function Dashboard() {
   // const {accommodation, isLoading, isError, message } = useSelector(
   //   (state) => state.accommodation
   // )
-  console.log('accommodation')
+  // console.log('accommodation')
   const init = []
   const [open, setOpen] = useState(false);
   const [list, setList] = useState(init);
@@ -26,7 +27,9 @@ function Dashboard() {
     setOpen(!open)
   }
 
-  
+  const onLinkClick = (e) => {
+    console.log('click link', e)
+  }
 
   useEffect(() => {
 
@@ -53,16 +56,17 @@ function Dashboard() {
 
   return (
     <>
+
       <section className='heading'>
         <h1>Welcome {user && user.name} to Vacances</h1>
       </section>  
       <div className='home'>
             <Banner />
-            {/* <Button onClick={reload}>Reload</Button> */}
+
             {list.length > 0 ? (
               <div className='home__section'>
                 {list.map((item) => (
-                  <Link to={`/accommodation/${item._id}`}>
+                  <Link onClick={onLinkClick} to={`/accommodation/${item._id}`}>
                     <Card src={item.imageUrlList[0]} title={item.title} description={item.description} price={item.pricePerNight} />
                   </Link>
                 ))}

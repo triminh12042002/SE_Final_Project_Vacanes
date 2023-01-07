@@ -31,6 +31,12 @@ const getAllAccommodation = async (req, res)=> {
     return res.status(200).json(allRooms)
 }
 
+const getAccommodation = async (req, res)=> {
+    const {id, roomId} = req.params
+    const room = await Accommodation.findById(roomId)
+    return res.status(200).json(room)
+}
+
 const createAccommodation = async (req, res)=> {
     const {id} = req.params
     const response = await isHost(id)
@@ -121,4 +127,4 @@ const deleteAcccommodation = async (req, res)=> {
     })
 }
 
-module.exports = {getAllAccommodation, createAccommodation, updateAccommodation, deleteAcccommodation}
+module.exports = {getAllAccommodation, getAccommodation, createAccommodation, updateAccommodation, deleteAcccommodation}

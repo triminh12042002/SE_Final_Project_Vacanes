@@ -1,33 +1,46 @@
-import * as React from "react";
-import "./Accommodation.css";
-import materialSymbolsmeet from "./assets/materialSymbolsmeet.svg";
-import vector from "./assets/vector.svg";
-import vector1 from "./assets/vector1.svg";
+import React from 'react'
+import { useState } from 'react';
+import { useEffect } from 'react'
+import {useParams} from 'react-router-dom'
+import axios from 'axios';
 
-function Accommodation (){
+
+export default function Accommodation() {
+    const params = useParams();
+    const accommodationId = params.id;
+    const [accommodation, setAccommodation] = useState(null)
+
+    useEffect(() => {
+        console.log(params)
+        let mounted = true;
+
+
+        const fetchGroupAPI = (mounted) => {
+            axios.get(`http://localhost:5000/api/accommodations/${accommodationId}`).then(res => {
+                console.log('data:',res.data);
+                if(mounted){
+                    setAccommodation(res.data);
+                }
+
+            }).catch(res => console.log(res));
+        }
+
+        fetchGroupAPI(mounted);
+        console.log('accommodation', accommodation)
+        return () => {
+            mounted = false;
+        };
+    }, [])
   return (
-    <div className="desktop-1">
-      <span className="vancances">Vancances</span>
-      <span className="which-type-of-place">
-        Which type of place will guests have?
-      </span>
-      <div className="frame-4">
-        <img className="vector" src={vector} />
-        <span className="an-entire-place">An entire place</span>
-      </div>
-      <div className="frame-5">
-        <img className="material-symbolsmeet" src={materialSymbolsmeet} />
-        <span className="a-private-room">A private room</span>
-      </div>
-      <div className="frame-6">
-        <img className="vector-1" src={vector1} />
-        <span className="a-shared-room">A shared room</span>
-      </div>
-      <div className="flex-container">
-        <span className="back">Back</span>
-        <span className="next">Next</span>
-      </div>
+    <div>
+        {accommodation ? (
+            <>
+                <h1>{accommodation.title}</h1>
+                <h1>{accommodation.description}</h1>
+            </>
+        ) : (
+            <h3>Cannot find any accommodation</h3>
+        )}
     </div>
-  );
-};
-export default Accommodation;
+  )
+}
