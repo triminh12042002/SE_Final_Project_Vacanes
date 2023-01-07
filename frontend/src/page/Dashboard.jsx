@@ -66,7 +66,7 @@ function Dashboard() {
             {list.length > 0 ? (
               <div className='home__section'>
                 {list.map((item) => (
-                  <Link onClick={onLinkClick} to={`/accommodation/${item._id}`}>
+                  <Link class='item' onClick={onLinkClick} to={`/accommodation/${item._id}`}>
                     <Card src={item.imageUrlList[0]} title={item.title} description={item.description} price={item.pricePerNight} />
                   </Link>
                 ))}

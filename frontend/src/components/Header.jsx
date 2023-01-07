@@ -17,14 +17,33 @@ function Header() {
     return (
         <header className='header'>
             <div>
-                <Link to='/'>Vacances</Link>
+                <Link to='/'>
+                    <h1>Vacances</h1>
+                </Link>
             </div>
+            <ul>
+                {user && user.isHost ? (
+                    <li>
+                        <button className='btn' onClick={onLogout}>
+                        Manage your accommodation
+                        </button>
+                    </li>
+                    ) : (
+                    <li>
+                    <Link to='/login'>
+                        <h2>Become a host</h2>
+                    </Link>
+                    </li>
+                        
+                )}  
+                </ul>
             <ul>
             {user ? (
                 <li>
                     <button className='btn' onClick={onLogout}>
                     <FaSignOutAlt /> Logout
                     </button>
+                    
                 </li>
                 ) : (
                 <>
@@ -41,6 +60,7 @@ function Header() {
                 </>
             )}  
             </ul>
+            
         </header>
     
   )
