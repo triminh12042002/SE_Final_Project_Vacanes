@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
 const Host = require('../models/hostModel') 
+const Accommodation = require('../models/accommodationModel')
+
 const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body
     console.log(req.body)
@@ -75,7 +77,7 @@ const requestToBeHost = async(req, res)=>{
         })
     }
 
-    if(!user.isHost){
+    if(user.isHost){
         return res.status(400).json({
             error: 'User already a host'
         })
@@ -86,4 +88,25 @@ const requestToBeHost = async(req, res)=>{
     return res.status(200).json(host)
 }
 
-module.exports = {registerUser, loginUser, getAllUser, becomeHost}
+const getHostAccommodation = async(req, res)=>{
+    const {id} = req.params
+    const user = await User.findById(id)
+    if(!user){
+        return res.status(400).json({
+            error: 'User not exist'
+        })
+    }
+
+    if(!user.isHost){
+        return res.status(400).json({
+            error: 'User is not a host'
+        })
+    }
+
+    const rooms = await Accommodation.find({creator: id})
+    
+    return res.status(200).json(rooms) 
+
+}
+
+module.exports = {registerUser, loginUser, getAllUser, requestToBeHost, getHostAccommodation}

@@ -31,6 +31,7 @@ const getAllAccommodation = async (req, res)=> {
     return res.status(200).json(allRooms)
 }
 
+
 const createAccommodation = async (req, res)=> {
     const {id} = req.params
     const response = await isHost(id)
