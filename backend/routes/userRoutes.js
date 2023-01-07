@@ -5,5 +5,6 @@ const {registerUser, getAllUser, loginUser} = require('../controllers/userContro
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/get', getAllUser)  
+router.get('/get', getAllUser)
 
 module.exports = router

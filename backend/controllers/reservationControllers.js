@@ -15,9 +15,7 @@ const validate = async (roomId, dateStart, dateEnd) => {
     return true
 }
 
-
 const createReservation = async (req, res)=>{
-    console.log('hherre')
     const {id, roomId} = req.params
     const {dateStart, dateEnd} = req.body
     const response = await validate(roomId, dateStart, dateEnd)
