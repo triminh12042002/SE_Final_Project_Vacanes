@@ -13,12 +13,12 @@ import { Button } from '@mui/material';
 import CreateAccommodation from './CreateAccommodation';
 import './myButton.css'
 
-export default function Host() {
+export default function Admin() {
     const params = useParams();
     const userId = params.id;
     const [open, setOpen] = useState(false);
 
-    const [Host, setHost] = useState(null)
+    const [Admin, setAdmin] = useState(null)
     const [list, setList] = useState([])
     const { user } = useSelector((state) => state.auth)
 
@@ -29,7 +29,7 @@ export default function Host() {
             imageUrlList: imageUrlList,
         }
         console.log(accommodationData)
-        axios.post(`http://localhost:5000/api/hosts/${user._id}`, accommodationData).then(res => {
+        axios.post(`http://localAdmin:5000/api/admins/${user._id}`, accommodationData).then(res => {
             console.log('res.data',res.data);
             console.log('res',res);
             if(res.data){
@@ -52,7 +52,7 @@ export default function Host() {
         setOpen(false);
     };
     const fetchGroupAPI = (mounted) => {
-        axios.get(`http://localhost:5000/api/hosts/${userId}`).then(res => {
+        axios.get(`http://localAdmin:5000/api/admins/${userId}`).then(res => {
             console.log('res.data',res.data);
             if(mounted) setList(res.data);
             }).catch(res => {
@@ -86,7 +86,7 @@ export default function Host() {
                 ))}
               </div>
             ) : (
-              <h3>Cannot find any accommodation</h3>
+              <h3>Cannot find any host</h3>
             )}
     </div>
   )

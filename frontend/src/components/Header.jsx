@@ -24,13 +24,13 @@ function Header() {
             <ul>
                 {user && user.isHost ? (
                     <li>
-                        <button className='btn' onClick={onLogout}>
-                        Manage your accommodation
-                        </button>
+                        <Link to={`/host/${user._id}`}>
+                            <h2>Manage your accommodation</h2>
+                        </Link>
                     </li>
                     ) : (
                     <li>
-                    <Link to='/host'>
+                    <Link to='/'>
                         <h2>Become a host</h2>
                     </Link>
                     </li>

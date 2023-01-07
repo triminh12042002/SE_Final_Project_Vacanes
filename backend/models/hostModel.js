@@ -5,7 +5,10 @@ const hostSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User'
     },
-    isVerified: false,
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     accommodations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'accommodation' }]
     },
     {

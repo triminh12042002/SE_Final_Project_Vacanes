@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import CreateFormDialog from '../components/CreateFormDialog';
 import { Button } from '@mui/material';
+import './myButton.css'
 
 export default function Accommodation() {
     const params = useParams();
@@ -73,7 +74,7 @@ export default function Accommodation() {
                 <h1>{accommodation.description}</h1>
                 <img src={accommodation.imageUrlList[0]} alt="" />
                 <div></div>
-                <Button class="reserveButton" onClick={handleOpen}>Reservation</Button>
+                <Button class="button-29" onClick={handleOpen}>Reservation</Button>
                 <CreateFormDialog open={open} handleCreate={handleCreate}/>
             </>
         ) : (

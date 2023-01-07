@@ -5,8 +5,6 @@ const {getAllAccommodation,getAccommodation, createAccommodation, updateAccommod
 
 router.get('/', asyncHandler(getAllAccommodation))
 router.get('/:roomId', asyncHandler(getAccommodation))
-router.post('/:id', asyncHandler(createAccommodation))
-router.post('/:id/edit/:roomId', asyncHandler(updateAccommodation))
-router.post('/:id/delete/:roomId', asyncHandler(deleteAcccommodation))
+
 
 module.exports = router

@@ -26,6 +26,7 @@ app.use(express.urlencoded({extended: false}))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/reservations', require('./routes/reservationRoutes'))
 app.use('/api/accommodations', require('./routes/accommodationRoutes'))
+app.use('/api/hosts', require('./routes/hostRoutes'))
 
 // app.get('/', (req, res) => {
 //     res.status(200).json({message: 'Homepage'})
