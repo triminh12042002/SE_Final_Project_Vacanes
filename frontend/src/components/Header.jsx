@@ -30,7 +30,7 @@ function Header() {
                     </li>
                     ) : (
                     <li>
-                    <Link to='/login'>
+                    <Link to='/host'>
                         <h2>Become a host</h2>
                     </Link>
                     </li>

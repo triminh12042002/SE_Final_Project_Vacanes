@@ -6,6 +6,7 @@ import Login from './page/Login'
 import Register from './page/Register'
 import CreateAccommodation from './page/CreateAccommodation'
 import Accommodation from './page/Accommodation'
+import Host from './page/Host'
 
 function App(){
     return (
@@ -19,6 +20,8 @@ function App(){
                     <Route path='/register' element={<Register/>} />
                     <Route path='/accommodation' element={<Accommodation/>} />
                     <Route path='/accommodation/:id' element={<Accommodation/>} />
+                    <Route path='/host' element={<Host/>} />
+                    <Route path='/host/:id' element={<Host/>} />
                 </Routes>
             </div>
         </Router>

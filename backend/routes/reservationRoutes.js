@@ -1,9 +1,9 @@
+
 const express = require('express')
 const router = express.Router()
-const {getReservations, setReservation} = require('../controllers/reservationControllers')
-const {protect} = require('../middleware/authMiddleware')
+const asyncHandler = require('../utils/asyncHandler')
+const {createReservation} = require('../controllers/reservationControllers')
 
-// get list reservations
-router.route('/').get(protect, getReservations).post(protect, setReservation)
+router.post('/:id/reserve/:roomId', asyncHandler(createReservation))
 
 module.exports = router
