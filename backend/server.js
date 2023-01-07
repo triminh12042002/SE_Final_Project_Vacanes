@@ -1,14 +1,23 @@
+require('dotenv').config()
 const express = require('express')
-const colors = require('colors')
-const connectDB = require('./config/db')
-const dotenv = require('dotenv').config()
+const mongoDB = require('./config/db')
+const http = require('http')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 
-connectDB()
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 
-// to res with an json object
+app.use(cors(corsOptions)) // Use this after the variable declaration
+
+// connectDB()
+
 app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 // to req and pass data through req.body
 app.use(express.urlencoded({extended: false}))
@@ -16,9 +25,22 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/reservations', require('./routes/reservationRoutes'))
+app.use('/api/accommodations', require('./routes/accommodationRoutes'))
 
-app.get('/', (req, res) => {
-    res.status(200).json({message: 'Homepage'})
-})  
+// app.get('/', (req, res) => {
+//     res.status(200).json({message: 'Homepage'})
+// })  
 
-app.listen(port, () => console.log(`Server start at port ${port}`))
+
+const startServer = async ()=>{
+    try {
+        await mongoDB.connectDB()
+        http.createServer(app).listen(port, ()=>{
+            console.log(`Listening port ${port}`)
+        })
+    }catch(err){
+        console.log(`Server cannot start with error: ${err}`)
+    }
+}
+
+startServer()

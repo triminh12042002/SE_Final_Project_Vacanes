@@ -1,36 +1,75 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
-
+import axios from 'axios'
+// import { getAccommodations, reset } from '../features/accommodations/accommodationSlice'
+import { getAccommodations } from '../features/accommodations/accommodationService'
 import './Dashboard.css'
 import Banner from '../components/Banner'
 import Card from '../components/Card'
+import { Button, Link } from '@mui/material'
 
 function Dashboard() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const { user } = useSelector((state) => state.auth)
-  const {accommodation, isLoading, isError, message } = useSelector(
-    (state) => state.accommodation
-  )
+  // const {accommodation, isLoading, isError, message } = useSelector(
+  //   (state) => state.accommodation
+  // )
+  console.log('accommodation')
+  const init = []
+  const [open, setOpen] = useState(false);
+  const [list, setList] = useState(init);
+  
+  const reload = (e) => {
+    setOpen(!open)
+  }
+
+  
+
+  useEffect(() => {
+
+    if (!user) {
+      navigate('/login')
+    }
+    let mounted = true;
+    
+    const fetchGroupAPI = () => {
+        axios.get("http://localhost:5000/api/accommodations").then(res => {
+          console.log('res.data',res.data);
+          if(mounted) setList(res.data);
+        }).catch(res => {
+            console.log('res',res);
+        });
+    };
+    
+    fetchGroupAPI();
+    
+    return () => {
+        mounted = false;
+    };
+  },[open, user]);
 
   return (
     <>
       <section className='heading'>
-        <h1>Welcome {user && user.name}</h1>
-        <p>Goals Dashboard</p>
+        <h1>Welcome {user && user.name} to Vacances</h1>
       </section>  
       <div className='home'>
             <Banner />
-
-            <div className='home__section'>
-            <Card
-                src="https://a0.muscache.com/im/pictures/eb9c7c6a-ee33-414a-b1ba-14e8860d59b3.jpg?im_w=720"
-                title="Online Experiences"
-                description="Unique activities we can do together, led by a world of hosts."
-            />
-            </div>
+            {/* <Button onClick={reload}>Reload</Button> */}
+            {list.length > 0 ? (
+              <div className='home__section'>
+                {list.map((item) => (
+                  <Link to={`/accommodation/${item._id}`}>
+                    <Card src={item.imageUrlList[0]} title={item.title} description={item.description} price={item.pricePerNight} />
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <h3>Cannot find any accommodation</h3>
+            )}
             
       </div>
     </>

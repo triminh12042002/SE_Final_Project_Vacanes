@@ -33,7 +33,8 @@ export const getAccommodations = createAsyncThunk(
   'accommodations/getAll',
   async (_, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token
+      // const token = thunkAPI.getState().auth.user.token
+      const token = '123'
       return await accommodationService.getAccommodations(token)
     } catch (error) {
       const message =
