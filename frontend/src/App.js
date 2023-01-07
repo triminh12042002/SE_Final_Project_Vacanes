@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Header from './components/Header'
+import Accommodation from './page/Accommodation'
 import Dashboard from './page/Dashboard'
 import Login from './page/Login'
 import Register from './page/Register'
@@ -14,6 +15,7 @@ function App(){
                     <Route path='/' element={<Dashboard/>} />
                     <Route path='/login' element={<Login/>} />
                     <Route path='/register' element={<Register/>} />
+                    <Route path='/accommodation' element={<Accommodation/>} />
                 </Routes>
             </div>
         </Router>
